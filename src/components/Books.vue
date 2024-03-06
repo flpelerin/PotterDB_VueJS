@@ -1,4 +1,3 @@
-
 <script setup>
 import { ref, onMounted } from 'vue';
 
@@ -24,9 +23,23 @@ onMounted(async () => {
 <template>
   <h1>Livres</h1>
   <ul class="element-list">
-    <li v-for="book in books.data" :key="book.id">
-      {{ book.attributes.title }}
-    </li>
+    <div v-if="!$route.params.id">
+      <li v-for="book in books.data" :key="book.id">
+        <router-link :to="{ name: 'BookDetails', params: { id: book.id } }">
+          {{ book.attributes.title }}
+        </router-link>
+      </li>
+    </div>
+
+    <div v-else>
+      {{$route.params.id}}
+      <li v-for="book in books.data" :key="book.id" v-if="book.id === $route.params.id">
+        <h2>{{ book.attributes.title }}</h2>
+        <p>Auteur: {{ book.attributes.author }}</p>
+        <p>Date de publication: {{ book.attributes.published_at }}</p>
+      </li>
+    </div>
+
   </ul>
 </template>
 

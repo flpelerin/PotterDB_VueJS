@@ -28,6 +28,11 @@ const routes = [
     component: Books,
   },
   {
+    path: '/books/:id',
+    name: 'BookDetails',
+    component: Books,
+  },
+  {
     path: '/characters',
     name: 'Characters',
     component: Characters,
