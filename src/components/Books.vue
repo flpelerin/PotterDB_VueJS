@@ -1,46 +1,44 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
+const route = useRoute();
 
-import axios from 'axios';
+import PageHeader from './PageHeader.vue'
 
-//https://api.potterdb.com/v1/books?filter[title_cont]=Harry%20Potter%20and%20the%20Philosopher%27s%20Stone
+import DatabaseInteraction from './DatabaseInteraction.vue';
+const { subUrl, elements } = DatabaseInteraction.setup();
 
-const baseUrl = 'https://api.potterdb.com/v1/';
-const booksUrl = 'books/';
-
-const books = ref([]);
-
-onMounted(async () => {
-  try {
-    const response = await axios.get(`${baseUrl}${booksUrl}`);
-    books.value = response.data;
-  } catch (error) {
-    console.error(error);
-  }
-});
+subUrl.value = 'books/';
 </script>
 
 <template>
-  <h1>Livres</h1>
-  <ul class="element-list">
-    <div v-if="!$route.params.id">
-      <li v-for="book in books.data" :key="book.id">
-        <router-link :to="{ name: 'BookDetails', params: { id: book.id } }">
-          {{ book.attributes.title }}
-        </router-link>
-      </li>
+  <div v-if="!route.params.id">
+    <div class="page-header">
+      <h1>Livres</h1>
+      <PageHeader />
     </div>
-
-    <div v-else>
-      {{$route.params.id}}
-      <li v-for="book in books.data" :key="book.id" v-if="book.id === $route.params.id">
+    <ul>
+      <li v-for="book in elements.data" :key="book.id" class="cell-container">
+        <div class="cell">
+          <img :src="book.attributes.cover" alt="" width="100" height="150">
+          <router-link :to="{ name: 'BookDetails', params: { id: book.id } }">
+            {{ book.attributes.title }}
+          </router-link>
+        </div>
+      </li>
+    </ul>
+    
+  </div>
+  <div v-else>
+    <div v-for="book in elements.data" :key="book.id">
+      <div class="cell" v-if="book.id == route.params.id">
+        <img :src="book.attributes.cover" alt="" width="200" height="300">
         <h2>{{ book.attributes.title }}</h2>
         <p>Auteur: {{ book.attributes.author }}</p>
-        <p>Date de publication: {{ book.attributes.published_at }}</p>
-      </li>
+        <p>Date de publication: {{ book.attributes.release_date }}</p>
+      </div>
     </div>
+  </div>
 
-  </ul>
 </template>
 
 <-- Liste des livres de l'univers Harry Potter avec des informations telles que

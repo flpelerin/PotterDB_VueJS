@@ -18,10 +18,23 @@ const routes = [
     component: Potions,
   },
   {
+    path: '/potions/:id',
+    name: 'PotionDetails',
+    component: Potions,
+  },
+
+  {
     path: '/spells',
     name: 'Spells',
     component: Spells,
   },
+  {
+    path: '/spells:id',
+    name: 'SpellDetails',
+    component: Spells,
+  },
+
+
   {
     path: '/books',
     name: 'Books',
@@ -32,9 +45,15 @@ const routes = [
     name: 'BookDetails',
     component: Books,
   },
+
   {
     path: '/characters',
     name: 'Characters',
+    component: Characters,
+  },
+  {
+    path: '/characters/:id',
+    name: 'CharacterDetails',
     component: Characters,
   },
 ];

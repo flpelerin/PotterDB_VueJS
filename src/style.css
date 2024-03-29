@@ -15,8 +15,26 @@ a:hover {
   color: #535bf2;
 }
 
-header {
-  position: fixed;
+
+.cell {
+  /* transparent gray background, rounded box */
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 0.5em;
+  padding: 1em;
+  margin: 1em;
+
+  display: flex;
+  gap: 1em;
+
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+}
+
+
+.header {
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -47,5 +65,36 @@ body {
 
 h1 {
   font-size: 3.2em;
-  line-height: 1.1;
+  line-height: 0  ;
+}
+
+
+/* have multiple columns */
+ul {
+  list-style-type: none;
+  break-inside: avoid;
+}
+
+
+.page-header {
+
+    /* gray transparent box around h1 too, like cells */
+    background-color: rgba(0, 0, 0, 0.6);
+
+    border-radius: 0.5em;
+    padding: 0.5em;
+    width: 150%;
+    margin-left: -35%;
+
+    /* make it centered */
+    text-align: center;
+
+    /* margin to separate from the top */
+    margin-top: 4em;
+
+    /* layout of elements horizontal */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
 }
